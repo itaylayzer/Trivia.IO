@@ -26,10 +26,10 @@ function App() {
             </h3>
             <div className="buttons">
                 <button onClick={()=>{
-                    document.location.href = "/trivia/host";
+                    document.location.href = "/Trivia.IO/host";
                 }}>host</button>
                 <button onClick={()=>{
-                    document.location.href = "/trivia/play";
+                    document.location.href = "/Trivia.IO/play";
                 }}>play</button>
             </div>
         </main>

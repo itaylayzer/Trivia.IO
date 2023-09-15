@@ -470,7 +470,7 @@ function App() {
                                             </button>
                                             <button
                                                 onClick={() => {
-                                                    window.location.href = "/trivia/";
+                                                    window.location.href = "/Trivia.IO/";
                                                 }}
                                             >
                                                 Stop Server
