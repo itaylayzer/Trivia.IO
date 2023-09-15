@@ -6,15 +6,15 @@ import "./index.css";
 import {  RouterProvider, createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
     {
-        path: "trivia",
+        path: "Trivia.IO",
         element: <Main />,
     },
     {
-        path: "/trivia/play",
+        path: "/Trivia.IO/play",
         element: <Play />,
     },
     {
-        path: "/trivia/host",
+        path: "/Trivia.IO/host",
         element: <Host />,
     },
 
