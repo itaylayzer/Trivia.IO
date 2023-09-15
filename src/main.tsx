@@ -4,7 +4,6 @@ import Play from "./pages/play.tsx";
 import Host from "./pages/host.tsx";
 import "./index.css";
 import {  RouterProvider, createBrowserRouter } from "react-router-dom";
-
 const router = createBrowserRouter([
     {
         path: "trivia",
@@ -18,9 +17,11 @@ const router = createBrowserRouter([
         path: "/trivia/host",
         element: <Host />,
     },
+
 ]);
 
 function App() {
+
     return <RouterProvider router={router} />;
 }
 

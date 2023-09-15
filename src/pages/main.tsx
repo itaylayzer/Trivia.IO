@@ -1,10 +1,7 @@
 import {useEffect} from 'react';
 function App() {
     useEffect(()=>{
-        document.title = "Play"
-
-
-
+        document.title = "Trινια.io"
     },[])
 
     return (
@@ -24,7 +21,7 @@ function App() {
                         document.location.href = "/Coder-1t45";
                     }}
                 >
-                    @coder-1t45
+                    @coder-1t45 - 15.9.23
                 </p>
             </h3>
             <div className="buttons">

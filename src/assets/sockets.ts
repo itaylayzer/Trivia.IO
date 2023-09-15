@@ -73,7 +73,11 @@ export class Socket {
             } catch {}
         });
     }
-    public on(event_name: string | "disconnect", handler: (args: any) => void) {
+
+    public on(event_name: string, handler: (args: any) => void): void;
+    public on(event_name: "disconnect", handler: () => void): void;
+
+    public on(event_name: string | "disconnect", handler: (args: any) => void): void {
         this.events.set(event_name, handler);
         this.client.on("data", () => {});
     }
@@ -91,7 +95,7 @@ export class Server {
     public logs: Array<any[]> = [];
     public code: string;
     public whenCloseF: () => void;
-    public emit:(event_name: string, args?: any)=>void;
+    public emit: (event_name: string, args?: any) => void;
     constructor(idf?: (id: string, thisobj: Server) => Promise<() => void> | undefined, onf?: (s: Socket, server: Server) => void) {
         this.socket = new Peer({
             debug: 0,
@@ -102,7 +106,7 @@ export class Server {
             const f = await idf?.(id, this);
             f !== undefined ? (this.whenCloseF = f) : "";
         });
-        this.emit = ()=>{};
+        this.emit = () => {};
         this.socket.on("connection", (dataConnection) => {
             dataConnection.on("open", () => {
                 const socket = new Socket(dataConnection);
