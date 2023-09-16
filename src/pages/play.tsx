@@ -20,9 +20,9 @@ function App() {
             console.log("rc args", JSON.stringify(args));
             SetRequestState(args);
         });
-        socket.on("cn", (cn: number) => {
-            moneyAnimation(cn);
-            SetCoins(cn);
+        socket.on("cn", (cn: [number,number]) => {
+            moneyAnimation(cn[1]);
+            SetCoins(cn[0]);
         });
 
         socket.on("disconnect", () => {
@@ -36,7 +36,7 @@ function App() {
     }, [socket]);
 
     function moneyAnimation(current: number) {
-        const c = current - coins;
+        const c = current;
         const xelement = document.querySelector("p.moneyAnim#moneyAnim");
         if (xelement === null) return;
         const pelement = xelement as HTMLParagraphElement;

@@ -3,6 +3,7 @@ import { Server, Socket } from "../assets/sockets";
 import questionsJSON from "../assets/questions.json";
 import Slider from "../components/Slider";
 import ButtonSelect from "../components/ButtonBoolean";
+import SequencesList from "../components/SequencesList";
 type Player = {
     name: string;
     coins: number;
@@ -16,6 +17,8 @@ interface IServer extends Server {
     };
     nextround: () => void;
     setproperties: (a: { autoskip: boolean; count: number }) => void;
+    setList:(l:Array<string>)=>void;
+    getList:()=>Array<string>;
 }
 function App() {
     const [Clients, SetClients] = useState<Map<string, Player>>(new Map());
@@ -25,7 +28,7 @@ function App() {
     // Settings
     const [qSize, SetQSize] = useState<number>(10);
     const [qAutoSkip, SetQAutoSkit] = useState<boolean>(true);
-
+    const [showCQ, setShowCQ] = useState<boolean>(false);
     const currentQuestion = useState<{
         question: string;
         answers: { answer: string; votes: number }[] | string[] | undefined;
@@ -35,7 +38,7 @@ function App() {
         document.title = "Host";
 
         // Gather information
-        const questionsMap = new Map(questionsJSON.questions.map((v, i) => [i, v]));
+        let questionsMap = new Map(questionsJSON.questions.map((v, i) => [i, v]));
 
         // Start The Server
         const clients = new Map<
@@ -81,6 +84,9 @@ function App() {
             (id: string, serv: Server) => {
                 serv.code = id;
                 iserver = serv as IServer;
+                iserver.getList = ()=>{
+                    return Array.from(questionsMap.values());
+                }
                 iserver.setproperties = (x) => {
                     if (iserver !== undefined) iserver.properties = x;
                     console.log(iserver);
@@ -93,6 +99,30 @@ function App() {
                     count: 0,
                     showNext: false,
                 };
+                iserver.setList = (l)=>{
+                    function shuffle(array:string[]):string[] {
+                        let currentIndex:number = array.length,  randomIndex:number;
+                      
+                        // While there remain elements to shuffle.
+                        while (currentIndex > 0) {
+                      
+                          // Pick a remaining element.
+                          randomIndex = Math.floor(Math.random() * currentIndex);
+                          currentIndex--;
+                      
+                          // And swap it with the current element.
+                          [array[currentIndex], array[randomIndex]] = [
+                            array[randomIndex], array[currentIndex]];
+                        }
+                      
+                        return array;
+                      }
+                    if (iserver) iserver.getList = ()=>{
+                        return Array.from(questionsMap.values());
+                    }
+                    questionsMap = new Map(shuffle(l).map((v, i) => [i, v]));
+                }
+                
                 iserver.nextround = () => {};
                 console.log(iserver);
                 SetIServer(iserver);
@@ -186,7 +216,7 @@ function App() {
                                     const cAddons = coinsper * countObjs[x[1]];
                                     xplayer.player.coins += cAddons;
 
-                                    xplayer.socket.emit("cn", xplayer.player.coins);
+                                    xplayer.socket.emit("cn", [xplayer.player.coins, cAddons]);
                                     const xelements = document.querySelectorAll(`p.sideMoneyAnim`);
                                     for (const xelement of xelements) {
                                         if (xelement.getAttribute("data-user") !== x[0]) continue;
@@ -453,11 +483,11 @@ function App() {
                                                     <p className="name">
                                                         {v[1].name} <span>{v[1].coins}</span>
                                                     </p>
-                                                    <p className="sideMoneyAnim" data-user={v[0]}>
-                                                    </p>
+                                                    <p className="sideMoneyAnim" data-user={v[0]}></p>
                                                 </div>
                                             ))}
                                     </div>
+                                    
                                     <footer>
                                         <progress value={iserver.ingame.count} max={iserver.properties.count}></progress>
                                         <div>
@@ -546,9 +576,15 @@ function App() {
                                                     }}
                                                 />
                                             </center>
+                                            <center>
+                                            <button style={{marginTop:10, borderRadius:10}} className="original-button scale" onClick={()=>{
+                                                setShowCQ(true);
+                                            }}>Edit Sentences</button>
+                                            </center>
                                         </div>
                                     </div>
                                 </div>
+                               
                                 <center>
                                     <button
                                         style={{ marginTop: 50 }}
@@ -569,6 +605,14 @@ function App() {
                                     </button>
                                 </center>
                             </main>
+                            {
+                                        showCQ ? <SequencesList defaultValue={iserver.getList()} onCancel={()=>{
+                                            setShowCQ(false);
+                                        }} onSubmit={(l)=>{
+                                            iserver.setList(l);
+                                            setShowCQ(false);
+                                        }}/> : <></>
+                                    }
                         </>
                     )}
                 </>

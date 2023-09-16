@@ -487,7 +487,7 @@ div.winners{
 @keyframes winnerAnimation {
   0%{
     scale:.7;
-    filter:blur(20px);
+    filter:blur(40px);
    }
    100%{
     scale:1;
@@ -616,4 +616,76 @@ p.sideMoneyAnim{
     display: block;
     translate:0px -50px
   }
+}
+
+div.over-ui{
+  position:absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height:100%;
+  background-color: rgb(15, 15, 15,50%);
+  backdrop-filter: blur(15px);
+}
+div.over-ui div.sequenceList{
+  position:absolute;
+  top:50%;
+  left:50%;
+  translate:-50% -50%;
+}
+
+div.over-ui div.sequenceList div button.action{
+  width: 50px;
+  box-shadow: 0px 0px;
+  translate:0px 0px;
+  padding:0px;
+  height:30px;
+  width: 30px;
+  scale:1.2;
+  margin-top:10px;
+  border-radius: 10px;
+  opacity:0.5;
+  font-weight: 900;
+}
+div.over-ui div.sequenceList div button.action.minus{
+  opacity: 0;
+  transition:opacity 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+div.over-ui div.sequenceList div:hover button.action.minus{
+  opacity:0.5
+}
+div.over-ui div.sequenceList div:hover button.action:hover{
+  opacity:1
+}
+div.over-ui div.sequenceList div button.action:hover{
+  box-shadow: 0px 0px;
+  translate:0px 0px;
+}
+div.over-ui div.sequenceList div{
+  padding-inline:50px;
+  width: 1000px;
+  display: flex;
+  gap:25px;
+}
+div.over-ui div.sequenceList div input {
+  width: 850px;
+}
+
+div.over-ui div.sequenceList div.buttons{
+  margin-top:30px;
+width: fit-content;
+}
+button.original-button{
+  translate:0px 0px;
+  box-shadow: 0px 0px;
+}
+button.original-button:hover{
+  translate:0px 0px;
+  box-shadow: 0px 0px;
+}
+button.original-button.scale{
+  transition:scale .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+button.original-button.scale:hover{
+  scale:0.9;
 }
