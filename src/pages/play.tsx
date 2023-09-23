@@ -17,7 +17,7 @@ function App() {
             SetRequestState(true);
         });
         socket.on("rc", (args: { [key: string]: string }) => {
-            console.log("rc args", JSON.stringify(args));
+
             SetRequestState(args);
         });
         socket.on("cn", (cn: [number,number]) => {

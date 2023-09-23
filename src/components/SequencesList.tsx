@@ -14,7 +14,6 @@ export default function SequencesList({ onSubmit, onCancel, defaultValue }: { de
                         <div>
                             <button style={list.length === 1?{pointerEvents:"none", opacity:0}:{}} onClick={()=>{
                                 SetList((oldList) => {
-                                    console.log("i", i);
                                     const newList = [];
                                     for (var x = 0; x < oldList.length; x++) {
                                         if (x !== i) newList.push(oldList[x]);
@@ -49,7 +48,7 @@ export default function SequencesList({ onSubmit, onCancel, defaultValue }: { de
                                     }
                                     if (e.currentTarget.value.length === 0 && e.code === "Backspace" && list.length > 1) {
                                         SetList((oldList) => {
-                                            console.log("i", i);
+
                                             const newList:Array<string> = [];
                                             for (var x = 0; x < oldList.length; x++) {
                                                 if (x !== i) newList.push(oldList[x]);

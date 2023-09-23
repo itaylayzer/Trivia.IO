@@ -1,19 +1,17 @@
 import Peer, { DataConnection } from "peerjs";
+import { code, TranslateCode } from "./code.env";
 
 export function io(uri: string): Promise<Socket> {
     return new Promise((resolve, reject) => {
         const peer = new Peer({
             debug: 0,
-            // logFunction: (...data: any[]) => {
-            //     console.log("client: ", ...data);
-            // },
-            secure: false,
+            secure: true,
         });
 
         // Listen for the 'open' event, which indicates that the Peer connection is open.
         peer.on("open", (id) => {
             // Once the Peer connection is open, create a data connection.
-            const dataConnection = peer.connect(uri, { reliable: true });
+            const dataConnection = peer.connect(TranslateCode(uri), { reliable: true });
 
             setTimeout(() => {
                 reject("the server took too long to respond");
@@ -96,16 +94,22 @@ export class Server {
     public code: string;
     public whenCloseF: () => void;
     public emit: (event_name: string, args?: any) => void;
-    constructor(idf?: (id: string, thisobj: Server) => Promise<() => void> | undefined, onf?: (s: Socket, server: Server) => void) {
-        this.socket = new Peer({
+    constructor(idf?: (thisobj: Server) => Promise<() => void> | undefined, onf?: (s: Socket, server: Server) => void) {
+        this.code = code();
+        this.socket = new Peer(TranslateCode(this.code),{
             debug: 0,
+            secure:true,
         });
-        this.code = "";
         this.whenCloseF = () => {};
         this.socket.on("open", async (id) => {
-            const f = await idf?.(id, this);
+            console.log(id);
+            const f = await idf?.(this);
             f !== undefined ? (this.whenCloseF = f) : "";
         });
+        this.socket.on('error',(r)=>{
+            console.error(r);
+        }
+        )
         this.emit = () => {};
         this.socket.on("connection", (dataConnection) => {
             dataConnection.on("open", () => {

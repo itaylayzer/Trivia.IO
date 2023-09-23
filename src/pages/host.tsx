@@ -81,15 +81,13 @@ function App() {
 
         let iserver: IServer | undefined = undefined;
         const server = new Server(
-            (id: string, serv: Server) => {
-                serv.code = id;
+            (serv: Server) => {
                 iserver = serv as IServer;
                 iserver.getList = ()=>{
                     return Array.from(questionsMap.values());
                 }
                 iserver.setproperties = (x) => {
                     if (iserver !== undefined) iserver.properties = x;
-                    console.log(iserver);
                 };
                 iserver.start = () => {
                     setWinner(false);
@@ -124,14 +122,12 @@ function App() {
                 }
                 
                 iserver.nextround = () => {};
-                console.log(iserver);
                 SetIServer(iserver);
                 return undefined;
             },
             (s, serv) => {
                 s.on("name", (name: string) => {
                     clients.set(s.id, { socket: s, player: { name: name, coins: 0 } });
-                    console.log("name", name);
                     update.clients();
                     serv.emit = (event_name: string, args?: any) => {
                         for (const xsocket of Array.from(clients.values()).map((v) => v.socket)) {
@@ -145,7 +141,6 @@ function App() {
                     }
                     currentRound.answers.set(s.id, args);
 
-                    console.log("ri count", currentRound.answers.size, currentRound.answers.size === clients.size, clients.size);
                     if (currentRound.answers.size === clients.size && currentRound.track === 0) {
                         serv.emit("rc", Object.fromEntries(currentRound.answers.entries()));
                         currentRound.track = 1;
