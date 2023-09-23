@@ -95,21 +95,35 @@ export class Server {
     public whenCloseF: () => void;
     public emit: (event_name: string, args?: any) => void;
     constructor(idf?: (thisobj: Server) => Promise<() => void> | undefined, onf?: (s: Socket, server: Server) => void) {
-        this.code = code();
-        this.socket = new Peer(TranslateCode(this.code),{
-            debug: 0,
-            secure:true,
-        });
+        var error = true;
+
+        var _code:string = "";
+        var _socket:Peer;
+
+        while (error) {
+            try {
+                _code = code();
+                _socket = new Peer(_code, {
+                    debug: 0,
+                    secure: true,
+                });
+                error = false;
+            } catch {
+                error = true;
+            }
+        }
+        this.code= _code;
+        // @ts-ignore
+        this.socket = _socket;
         this.whenCloseF = () => {};
         this.socket.on("open", async (id) => {
             console.log(id);
             const f = await idf?.(this);
             f !== undefined ? (this.whenCloseF = f) : "";
         });
-        this.socket.on('error',(r)=>{
+        this.socket.on("error", (r) => {
             console.error(r);
-        }
-        )
+        });
         this.emit = () => {};
         this.socket.on("connection", (dataConnection) => {
             dataConnection.on("open", () => {
