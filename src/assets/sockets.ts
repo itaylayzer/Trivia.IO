@@ -103,7 +103,7 @@ export class Server {
         while (error) {
             try {
                 _code = code();
-                _socket = new Peer(_code, {
+                _socket = new Peer(TranslateCode(_code), {
                     debug: 0,
                     secure: true,
                 });

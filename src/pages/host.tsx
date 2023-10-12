@@ -330,7 +330,7 @@ function App() {
                                                 document.location.href = "/";
                                             }}
                                         >
-                                            @coder-1t45 - 16.9.23
+                                            @coder-1t45 - 10.12.23
                                         </p>
                                     </h3>
                                     <main>
@@ -403,7 +403,7 @@ function App() {
                                                 document.location.href = "/";
                                             }}
                                         >
-                                            @coder-1t45 - 16.9.23
+                                            @coder-1t45 - 10.12.23
                                         </p>
                                     </h3>
                                     <main>
@@ -523,7 +523,7 @@ function App() {
                                             document.location.href = "/";
                                         }}
                                     >
-                                        @coder-1t45 - 16.9.23
+                                        @coder-1t45 - 10.12.23
                                     </p>
                                 </h3>
                                 <div className="main-host-list">
@@ -629,7 +629,7 @@ function App() {
                                     document.location.href = "/";
                                 }}
                             >
-                                @coder-1t45 - 16.9.23
+                                @coder-1t45 - 10.12.23
                             </p>
                         </h3>
 
