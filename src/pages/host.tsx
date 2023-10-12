@@ -327,7 +327,7 @@ function App() {
                                         {/* <span>trινια</span> */}
                                         <p
                                             onClick={() => {
-                                                document.location.href = "/Coder-1t45";
+                                                document.location.href = "/";
                                             }}
                                         >
                                             @coder-1t45 - 16.9.23
@@ -400,7 +400,7 @@ function App() {
                                         {/* <span>trινια</span> */}
                                         <p
                                             onClick={() => {
-                                                document.location.href = "/Coder-1t45";
+                                                document.location.href = "/";
                                             }}
                                         >
                                             @coder-1t45 - 16.9.23
@@ -520,7 +520,7 @@ function App() {
                                     {/* <span>trινια</span> */}
                                     <p
                                         onClick={() => {
-                                            document.location.href = "/Coder-1t45";
+                                            document.location.href = "/";
                                         }}
                                     >
                                         @coder-1t45 - 16.9.23
@@ -626,7 +626,7 @@ function App() {
                             {/* <span>trινια</span> */}
                             <p
                                 onClick={() => {
-                                    document.location.href = "/Coder-1t45";
+                                    document.location.href = "/";
                                 }}
                             >
                                 @coder-1t45 - 16.9.23
