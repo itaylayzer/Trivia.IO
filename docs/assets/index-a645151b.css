@@ -18,27 +18,27 @@ div#root main {
 @font-face {
     font-family: SpaceMono;
     font-weight: 500;
-    src: url(./fonts/SpaceMono-Bold.ttf)
+    src: url(/Trivia.IO/fonts/SpaceMono-Bold.ttf)
 }
 
 @font-face {
     font-family: SpaceMono;
     font-weight: 500;
     font-style: italic;
-    src: url(./fonts/SpaceMono-BoldItalic.ttf)
+    src: url(/Trivia.IO/fonts/SpaceMono-BoldItalic.ttf)
 }
 
 @font-face {
     font-family: SpaceMono;
     font-weight: 400;
     font-style: italic;
-    src: url(./fonts/SpaceMono-Italic.ttf)
+    src: url(/Trivia.IO/fonts/SpaceMono-Italic.ttf)
 }
 
 @font-face {
     font-family: SpaceMono;
     font-weight: 400;
-    src: url(./fonts/SpaceMono-Regular.ttf)
+    src: url(/Trivia.IO/fonts/SpaceMono-Regular.ttf)
 }
 
 div.buttons {
