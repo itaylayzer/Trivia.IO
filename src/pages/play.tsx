@@ -13,14 +13,24 @@ function App() {
     const [requestState, SetRequestState] = useState<boolean | { [key: string]: string }>(false);
     useEffect(() => {
         if (socket === undefined) return;
+
+        // state
+        socket.on("s", (args: boolean) => {
+            if (args) {
+                socket.emit("n", name);
+            } else {
+                alert("Game Already Started");
+                SetSocket(undefined);
+            }
+        });
+
         socket.on("ri", () => {
             SetRequestState(true);
         });
         socket.on("rc", (args: { [key: string]: string }) => {
-
             SetRequestState(args);
         });
-        socket.on("cn", (cn: [number,number]) => {
+        socket.on("cn", (cn: [number, number]) => {
             moneyAnimation(cn[1]);
             SetCoins(cn[0]);
         });
@@ -31,8 +41,6 @@ function App() {
             SetCoins(0);
             SetRequestState(false);
         });
-
-        socket.emit("name", name);
     }, [socket]);
 
     function moneyAnimation(current: number) {
@@ -170,7 +178,7 @@ function App() {
                         </div>
                     </footer>
 
-                    <p style={{color: "gold" }} id="moneyAnim" className="moneyAnim"></p>
+                    <p style={{ color: "gold" }} id="moneyAnim" className="moneyAnim"></p>
                 </>
             )}
         </>

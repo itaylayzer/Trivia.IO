@@ -80,6 +80,7 @@ function App() {
         } as Round;
 
         let iserver: IServer | undefined = undefined;
+        let gameStarted:boolean = false;
         const server = new Server(
             (serv: Server) => {
                 iserver = serv as IServer;
@@ -92,6 +93,7 @@ function App() {
                 iserver.start = () => {
                     setWinner(false);
                     gameStart();
+                    gameStarted = true;
                 };
                 iserver.ingame = {
                     count: 0,
@@ -126,7 +128,12 @@ function App() {
                 return undefined;
             },
             (s, serv) => {
-                s.on("name", (name: string) => {
+
+                // state
+                s.emit("s",!gameStarted)
+
+                // name
+                s.on("n", (name: string) => {
                     clients.set(s.id, { socket: s, player: { name: name, coins: 0 } });
                     update.clients();
                     serv.emit = (event_name: string, args?: any) => {
@@ -135,6 +142,8 @@ function App() {
                         }
                     };
                 });
+
+                // request input
                 s.on("ri", (args: string) => {
                     if (typeof currentRound.answers === "undefined") {
                         currentRound.answers = new Map<string, string>();
@@ -150,6 +159,7 @@ function App() {
                         });
                     }
                 });
+                
                 s.on("disconnect", () => {
                     const sId = s.id;
                     clients.delete(sId);
@@ -158,6 +168,8 @@ function App() {
                     }
                     update.clients();
                 });
+
+                // request choice
                 s.on("rc", (args: string) => {
                     if (typeof currentRound.votes === "undefined") {
                         currentRound.votes = new Map();
@@ -267,6 +279,8 @@ function App() {
                         }
                     }
                 });
+
+                
             }
         );
 
