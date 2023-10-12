@@ -1,30 +1,15 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8" />
-    <title>React Router</title>
-    <script type="text/javascript">
-        var pathSegmentsToKeep = 1;
-
-        var l = window.location;
-        l.replace(
-            l.protocol +
-            "//" +
-            l.hostname +
-            (l.port ? ":" + l.port : "") +
-            l.pathname
-                .split("/")
-                .slice(0, 1 + pathSegmentsToKeep)
-                .join("/") +
-            "/?/" +
-            l.pathname.slice(1).split("/").slice(pathSegmentsToKeep).join("/").replace(/&/g, "~and~") +
-            (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
-            l.hash
-        );
-    </script>
-</head>
-
-<body></body>
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Trivia.IO/white.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>trινια</title>
+    <script type="module" crossorigin src="/Trivia.IO/index-cf4c9926.js"></script>
+    <link rel="stylesheet" href="/Trivia.IO/index-a645151b.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+  </body>
 </html>
