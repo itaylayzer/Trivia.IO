@@ -117,7 +117,6 @@ export class Server {
         this.socket = _socket;
         this.whenCloseF = () => {};
         this.socket.on("open", async (id) => {
-            console.log(id);
             const f = await idf?.(this);
             f !== undefined ? (this.whenCloseF = f) : "";
         });
