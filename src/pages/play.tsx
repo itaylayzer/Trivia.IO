@@ -75,7 +75,7 @@ function App() {
                                 document.location.href = "/";
                             }}
                         >
-                            @coder-1t45 - 10.12.23
+                            @itaylayzer - 10.12.23
                         </p>
                     </h3>
                     <input
@@ -127,7 +127,7 @@ function App() {
                                 document.location.href = "/";
                             }}
                         >
-                            @coder-1t45 - 10.12.23
+                            @itaylayzer - 10.12.23
                         </p>
                     </h3>
                     <main>
